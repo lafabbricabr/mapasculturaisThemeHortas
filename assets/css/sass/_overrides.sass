@@ -1,0 +1,72 @@
+//
+// Overrides
+// --------------------------------------------------
+//## Style rules that overrides the default theme's ones.
+//## To make it easy to maintain and to avoid cascading problems,
+//## just before the new rules, document the name of the Sass partial
+//## where the original styles leave, group them per folder and keep
+//## them in the same order as the original styles are imported to the main.scss.
+
+//
+// application/
+// --------------------------------------------------
+
+
+
+body.controller-site
+    background-color: #f7f1ee
+    p, h1, h2, h3
+        color: #000
+
+#home-watermark
+    display: none
+
+
+#brand-logo img
+    width: initial
+    height: 51px
+
+#home-intro, #home-agents, #home-events, #home-spaces, #home-developers
+    background-color: transparent
+
+#home-intro
+    background-image: url('../img/home-intro.png')
+    background-size: cover
+
+#home-spaces
+    background: url('../img/home-spaces.png')
+    background-size: 100%
+    background-color: #5c4d3f
+    p, h1, h4, div, ul li
+        color: #FFF
+
+#home-agents
+    background: url('../img/home-agents.png')
+    background-position: right bottom
+
+#home-events
+    background: url('../img/home-events.png')
+
+
+#home-developers
+    background: url('../img/home-developers.png')
+    background-color: #92beb2
+    background-size: cover
+
+
+#home-intro, #home-agents, #home-events, #home-spaces, #home-developers
+    background-repeat: no-repeat
+
+footer#main-footer
+    display: none
+
+@font-face
+    font-family: "IconsHorta"
+    src:  url('../fonts/icons-horta.eot?spewuh')
+    src:  url('../fonts/icons-horta.eot?spewuh#iefix') format('embedded-opentype'), url('../fonts/icons-horta.ttf?spewuh') format('truetype'), url('../fonts/icons-horta.woff?spewuh') format('woff'), url('../fonts/icons-horta.svg?spewuh#IconsHorta') format('svg')
+    font-weight: normal
+    font-style: normal
+
+
+.icon-space, .icon-agent, .icon-event
+    font-family: "IconsHorta" !important

@@ -33,6 +33,26 @@ class Theme extends BaseV1\Theme{
 //
 //            'search: verified results' => 'Resultados Verificados',
 //            'search: verified' => "Verificados"
+            'entities: Spaces of the agent'=> 'Escolas do agente',
+            'entities: Space Description'=> 'Descrição do Escola',
+            'entities: My Spaces'=> 'Minhas Escolas',
+            'entities: My spaces'=> 'Minhas escolas',
+
+            'entities: no registered spaces'=> 'nenhuma escola cadastradoa',
+            'entities: no spaces'=> 'nenhuma escola',
+
+            'entities: Space' => 'Escola',
+            'entities: Spaces' => 'Escolas',
+            'entities: space' => 'escola',
+            'entities: spaces' => 'escolas',
+            'entities: parent space' => 'escola mãe',
+            'entities: a space' => 'uma escola',
+            'entities: the space' => 'a escola',
+            'entities: of the space' => 'da escola',
+            'entities: In this space' => 'Nesta escola',
+            'entities: in this space' => 'nesta escola',
+            'entities: registered spaces' => 'Escolas Identificadas',
+            'entities: new space' => 'nova escola',
         ];
     }
 
@@ -46,6 +66,7 @@ class Theme extends BaseV1\Theme{
 
         $app->hook('view.render(<<*>>):before', function() use($app) {
             $this->_publishAssets();
+
         });
 
     }
@@ -319,11 +340,22 @@ class Theme extends BaseV1\Theme{
 
     public function register() {
         parent::register();
+        $app = App::i();
+        $metadata = [];
+
 
         foreach($this->_getSpaceMetadata() as $key => $cfg){
-            $key = $prefix . $key;
+            $key = 'hor_' . $key;
 
             $metadata['MapasCulturais\Entities\Space'][$key] = $cfg;
         }
+
+        foreach($metadata as $entity_class => $metas){
+            foreach($metas as $key => $cfg){
+                $def = new \MapasCulturais\Definitions\Metadata($key, $cfg);
+                $app->registerMetadata($def, $entity_class);
+            }
+        }
+
     }
 }
