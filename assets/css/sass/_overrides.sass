@@ -18,13 +18,47 @@ body.controller-site
     p, h1, h2, h3
         color: #000
 
+#main-header
+    border-top: none
+
+#main-section
+    margin-top: 95px
+
 #home-watermark
     display: none
 
+#brand-logo
+    padding: 1.375rem 3.5rem
+    img
+        width: initial
+        height: 51px
 
-#brand-logo img
-    width: initial
-    height: 51px
+nav#main-nav, nav#about-nav
+    height: 95px
+    padding-top: 0
+    padding-bottom: 0
+    ul
+        &.entities-menu, &.session-menu
+            height: 104px
+            border: none
+            .icon
+                width: initial
+                margin: 0
+                font-size: 3.5rem
+                line-height: 3rem
+
+            .menu-item-label
+                line-height: 1rem
+
+            > li
+                width: 7.5rem
+                height: 104px
+                border: none
+                >a
+                    line-height: 2.4rem
+
+// nav#about-nav
+//     height: 95px
 
 #home-intro, #home-agents, #home-events, #home-spaces, #home-developers
     background-color: transparent
@@ -32,6 +66,10 @@ body.controller-site
 #home-intro
     background-image: url('../img/home-intro.png')
     background-size: cover
+    .box
+        width: 50%
+        position: relative
+        float: left
 
 #home-spaces
     background: url('../img/home-spaces.png')
@@ -68,5 +106,8 @@ footer#main-footer
     font-style: normal
 
 
-.icon-space, .icon-agent, .icon-event
-    font-family: "IconsHorta" !important
+.icon-space, .icon-agent, .icon-event, .icon-login
+    &:before
+        font-family: "IconsHorta" !important
+
+

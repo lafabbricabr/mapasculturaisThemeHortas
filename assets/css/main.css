@@ -3261,7 +3261,7 @@ h1 .icon {
   content: ""; }
 
 .icon-login:before {
-  content: "󮤃"; }
+  content: ""; }
 
 .icon-private-info:before {
   content: ""; }
@@ -5077,12 +5077,41 @@ body.controller-site {
   body.controller-site p, body.controller-site h1, body.controller-site h2, body.controller-site h3 {
     color: #000; }
 
+#main-header {
+  border-top: none; }
+
+#main-section {
+  margin-top: 95px; }
+
 #home-watermark {
   display: none; }
 
-#brand-logo img {
-  width: initial;
-  height: 51px; }
+#brand-logo {
+  padding: 1.375rem 3.5rem; }
+  #brand-logo img {
+    width: initial;
+    height: 51px; }
+
+nav#main-nav, nav#about-nav {
+  height: 95px;
+  padding-top: 0;
+  padding-bottom: 0; }
+  nav#main-nav ul.entities-menu, nav#main-nav ul.session-menu, nav#about-nav ul.entities-menu, nav#about-nav ul.session-menu {
+    height: 104px;
+    border: none; }
+    nav#main-nav ul.entities-menu .icon, nav#main-nav ul.session-menu .icon, nav#about-nav ul.entities-menu .icon, nav#about-nav ul.session-menu .icon {
+      width: initial;
+      margin: 0;
+      font-size: 3.5rem;
+      line-height: 3rem; }
+    nav#main-nav ul.entities-menu .menu-item-label, nav#main-nav ul.session-menu .menu-item-label, nav#about-nav ul.entities-menu .menu-item-label, nav#about-nav ul.session-menu .menu-item-label {
+      line-height: 1rem; }
+    nav#main-nav ul.entities-menu > li, nav#main-nav ul.session-menu > li, nav#about-nav ul.entities-menu > li, nav#about-nav ul.session-menu > li {
+      width: 7.5rem;
+      height: 104px;
+      border: none; }
+      nav#main-nav ul.entities-menu > li > a, nav#main-nav ul.session-menu > li > a, nav#about-nav ul.entities-menu > li > a, nav#about-nav ul.session-menu > li > a {
+        line-height: 2.4rem; }
 
 #home-intro, #home-agents, #home-events, #home-spaces, #home-developers {
   background-color: transparent; }
@@ -5090,6 +5119,10 @@ body.controller-site {
 #home-intro {
   background-image: url("../img/home-intro.png");
   background-size: cover; }
+  #home-intro .box {
+    width: 50%;
+    position: relative;
+    float: left; }
 
 #home-spaces {
   background: url("../img/home-spaces.png");
@@ -5122,7 +5155,7 @@ footer#main-footer {
   src: url("../fonts/icons-horta.eot?spewuh#iefix") format("embedded-opentype"), url("../fonts/icons-horta.ttf?spewuh") format("truetype"), url("../fonts/icons-horta.woff?spewuh") format("woff"), url("../fonts/icons-horta.svg?spewuh#IconsHorta") format("svg");
   font-weight: normal;
   font-style: normal; }
-.icon-space, .icon-agent, .icon-event {
+.icon-space:before, .icon-agent:before, .icon-event:before, .icon-login:before {
   font-family: "IconsHorta" !important; }
 
 /*# sourceMappingURL=main.css.map */

@@ -66,7 +66,11 @@ class Theme extends BaseV1\Theme{
 
         $app->hook('view.render(<<*>>):before', function() use($app) {
             $this->_publishAssets();
-
+            $this->assetManager->publishAsset('img/home-agents.png');
+            $this->assetManager->publishAsset('img/home-developers.png');
+            $this->assetManager->publishAsset('img/home-intro.png');
+            $this->assetManager->publishAsset('img/home-spaces.png');
+            $this->assetManager->publishFolder('fonts');
         });
 
     }
