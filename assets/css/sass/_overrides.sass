@@ -65,11 +65,16 @@ nav#main-nav, nav#about-nav
 
 #home-intro
     background-image: url('../img/home-intro.png')
-    background-size: cover
+    background-position: bottom
     .box
         width: 50%
         position: relative
         float: left
+        padding: 80px
+        padding-top: 120px
+
+        #home-search-form
+            margin-top: 80px
 
 #home-spaces
     background: url('../img/home-spaces.png')
@@ -78,9 +83,11 @@ nav#main-nav, nav#about-nav
     p, h1, h4, div, ul li
         color: #FFF
 
+
 #home-agents
     background: url('../img/home-agents.png')
     background-position: right bottom
+    background-repeat: no-repeat
 
 #home-events
     background: url('../img/home-events.png')
@@ -89,11 +96,21 @@ nav#main-nav, nav#about-nav
 #home-developers
     background: url('../img/home-developers.png')
     background-color: #92beb2
-    background-size: cover
 
 
-#home-intro, #home-agents, #home-events, #home-spaces, #home-developers
+
+#home-intro, #home-events, #home-spaces, #home-developers
     background-repeat: no-repeat
+    background-size: 100%
+
+#home-agentes, #home-spaces
+    .box
+        padding: 80px
+        padding-top: 120px
+
+#home-developers
+    .box
+        padding-top: 380px
 
 footer#main-footer
     display: none
