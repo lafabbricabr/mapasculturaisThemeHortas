@@ -2531,75 +2531,6 @@ nav.sidebar-panel ul {
   .sidebar.seal .widget-list-item > a {
     color: #cc0033; }
 
-.botao {
-  float: right;
-  display: inline; }
-
-input.botao {
-  background: #2063a5;
-  border: 1px solid #143d65;
-  cursor: pointer;
-  color: white; }
-
-.form-complaint-suggestion {
-  background: #f8f8f8;
-  padding-left: 18px;
-  padding-top: 32px;
-  border-left: 3px solid  #143d65; }
-
-input[type=text]:focus {
-  width: 250px; }
-
-.breadcrumb {
-  list-style-type: none;
-  overflow: hidden;
-  margin: 0; }
-  @media screen and (max-width: 1366px) and (min-width: 1200px) {
-    .breadcrumb {
-      margin: 0 0 0 20%; } }
-  @media screen and (min-width: 1367px) {
-    .breadcrumb {
-      margin: 0 0 0 15%; } }
-  .breadcrumb li {
-    background-color: #fafafa;
-    display: inline-block;
-    font-family: "Open Sans", Helvetica, Arial, sans-serif;
-    font-size: .8rem;
-    font-weight: bold;
-    line-height: 1.5rem;
-    margin-right: -6px; }
-    .breadcrumb li:first-child {
-      border-left: 1px solid #ddd; }
-      .breadcrumb li:first-child a:before {
-        content: none; }
-    .breadcrumb li:last-child {
-      background-color: transparent; }
-      .breadcrumb li:last-child span {
-        color: #777; }
-    .breadcrumb li a, .breadcrumb li span {
-      padding: 0 .8rem;
-      margin-left: 5px;
-      color: #999; }
-      .breadcrumb li a:after, .breadcrumb li a:before, .breadcrumb li span:after, .breadcrumb li span:before {
-        content: " ";
-        display: block;
-        height: 0;
-        position: absolute;
-        width: 0; }
-      .breadcrumb li a:after, .breadcrumb li span:after {
-        border-bottom: 11px solid transparent;
-        border-left: 8px solid #fafafa;
-        border-top: 12px solid transparent;
-        margin-left: 1px;
-        margin-top: -23px;
-        z-index: 2; }
-      .breadcrumb li a:before, .breadcrumb li span:before {
-        border-bottom: 13px solid transparent;
-        border-left: 8px solid #bbb;
-        border-top: 13px solid transparent;
-        margin-left: 1px;
-        z-index: 1; }
-
 #activities header h2 {
   font-size: 1.5rem;
   line-height: 1; }
@@ -2615,42 +2546,32 @@ input[type=text]:focus {
       .activity p {
         font-size: 1rem; } }
 
-.agentes {
+.agentes .avatar {
   position: relative; }
-  @media screen and (min-width: 768px) {
-    .agentes .avatar {
-      position: relative; }
-      .agentes .avatar:hover .descricao-do-agente {
-        display: block; } }
+  .agentes .avatar:hover .descricao-do-agente {
+    display: block; }
   .agentes .avatar.pending img {
     opacity: .3; }
   .agentes .avatar .descricao-do-agente {
     display: none;
     position: absolute;
     z-index: 800;
-    top: 0;
-    left: calc(50% - 110px);
-    width: 220px;
+    top: 3.5rem;
+    right: -.75rem;
+    width: 200px;
     padding: 0.75rem;
     font-size: 0.75rem;
     background: #fff;
     border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    box-sizing: border-box; }
-    @media screen and (min-width: 768px) {
-      .agentes .avatar .descricao-do-agente {
-        left: initial;
-        right: -.75rem;
-        top: 3.5rem; }
-        .agentes .avatar .descricao-do-agente:before {
-          content: "";
-          position: absolute;
-          top: -8px;
-          border-bottom: 8px solid #fff;
-          border-left: 8px solid transparent;
-          border-right: 8px solid transparent;
-          left: initial;
-          right: 1.5rem; } }
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+    .agentes .avatar .descricao-do-agente:before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      border-bottom: 8px solid #fff;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      right: 1.5rem; }
     .agentes .avatar .descricao-do-agente h1 {
       font-size: 1rem;
       line-height: 1.5rem;
@@ -5230,9 +5151,13 @@ nav#main-nav, nav#about-nav {
   background-repeat: no-repeat;
   background-size: 100%; }
 
-#home-agentes .box, #home-spaces .box {
-  padding: 80px;
+#home-agents .box, #home-spaces .box {
   padding-top: 120px; }
+  #home-agents .box .random-feature, #home-spaces .box .random-feature {
+    margin-top: 0; }
+    #home-agents .box .random-feature .feature-content, #home-spaces .box .random-feature .feature-content {
+      background: transparent;
+      border: none; }
 
 #home-developers .box {
   padding-top: 380px; }

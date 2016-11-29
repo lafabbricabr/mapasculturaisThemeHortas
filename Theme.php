@@ -75,10 +75,27 @@ class Theme extends BaseV1\Theme{
             $this->assetManager->publishFolder('fonts');
         });
 
+        $app->hook('template(space.<<*>>.tabs):begin', function(){
+            $this->part('header-tabs');
+        });
+
+        $insert_fields = function($entity, $fields) use($app){
+            foreach ($fields as $field) {
+                $this->part('singles/form-field', ['entity' => $entity, 'field_name' => $field, 'field_label' => $field]);
+            }
+        };
+
+        $app->hook('template(space.<<*>>.tabs-content):end', function() use($app, $insert_fields){
+            $entity = $app->view->controller->requestedEntity;
+            $this->part('content-tabs', ['entity' => $entity, 'insert_fields' => $insert_fields]);
+        });
+
+
     }
 
     protected function _getSpaceMetadata() {
         return [
+            // Inicio Institucional
             "num_inep" => [
                 "label" => "Número INEP da escola",
                 "type" => "text"
@@ -145,7 +162,8 @@ class Theme extends BaseV1\Theme{
                     "Parcial (até 34,5h semanais)"
                 ]
             ],
-
+            // Fim Institucional
+            // Começo Cultivo
             "ped_obj" => [
                 "label" => "É uma horta com objetivo pedagógico?",
                 "type" => "select",
@@ -279,10 +297,12 @@ class Theme extends BaseV1\Theme{
                     "Verduras"
                 ]
             ],
-            "num_" => [
+            "num_stud_involved" => [
                 "label" => "Qual a quantidade de alunos envolvidos com horta?",
                 "type" => "int"
             ],
+            // Fim Cultivo
+            // Início Compostagem
             "comp" => [
                 "label" => "A escola faz compostagem?",
                 "type" => "select",
@@ -312,6 +332,8 @@ class Theme extends BaseV1\Theme{
                     "Não"
                 ]
             ],
+            // Fim compostagem
+            // Início Coleta
             "selec_collect" => [
                 "label" => "A escola conta com coleta seletiva na porta?",
                 "type" => "select",
@@ -336,6 +358,7 @@ class Theme extends BaseV1\Theme{
                 "label" => "Email do responsável",
                 "type" => "text"
             ]
+            // Fim Coleta
         ];
 
     }

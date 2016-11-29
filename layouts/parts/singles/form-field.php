@@ -1,0 +1,2 @@
+<p>
+    <span class="label"><?php echo $field_label ?>: </span><span class="js-editable" data-edit="<?php echo $field_name ?>" data-original-title="<?php echo $field_label ?>"><?php echo $entity->$field_name; ?></span></p>

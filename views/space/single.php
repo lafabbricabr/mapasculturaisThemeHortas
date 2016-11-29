@@ -21,12 +21,6 @@ $child_entity_request = isset($child_entity_request) ? $child_entity_request : n
 $this->entity = $entity;
 
 ?>
-<?php $this->applyTemplateHook('breadcrumb','begin'); ?>
-
-<?php $this->part('singles/breadcrumb', ['entity' => $entity,'entity_panel' => 'spaces','home_title' => 'entities: My Spaces']); ?>
-
-<?php $this->applyTemplateHook('breadcrumb','end'); ?>
-
 <?php $this->part('editable-entity', ['entity' => $entity, 'action' => $action]);  ?>
 
 <article class="main-content space">
@@ -58,7 +52,6 @@ $this->entity = $entity;
     <?php $this->applyTemplateHook('tabs','before'); ?>
     <ul class="abas clearfix clear">
         <?php $this->applyTemplateHook('tabs','begin'); ?>
-        <li class="active"><a href="#sobre">Sobre</a></li>
         <?php if(!($this->controller->action === 'create')):?>
         <li><a href="#permissao">Permissões</a></li>
         <?php endif;?>
@@ -68,7 +61,7 @@ $this->entity = $entity;
 
     <div class="tabs-content">
         <?php $this->applyTemplateHook('tabs-content','begin'); ?>
-        <div id="sobre" class="aba-content">
+        <div id="institucional" class="aba-content">
             <?php $this->applyTemplateHook('tab-about','begin'); ?>
             <div class="ficha-spcultura">
                 <?php if($this->isEditable() && $entity->shortDescription && strlen($entity->shortDescription) > 400): ?>
@@ -96,19 +89,13 @@ $this->entity = $entity;
             <?php $this->applyTemplateHook('tab-about','end'); ?>
         </div>
         <!-- #sobre -->
+        <?php $this->applyTemplateHook('tabs-content','end'); ?>
         <!-- #permissao -->
         <?php $this->part('singles/permissions') ?>
         <!-- #permissao -->
-        <?php $this->applyTemplateHook('tabs-content','end'); ?>
     </div>
     <!-- .tabs-content -->
     <?php $this->applyTemplateHook('tabs-content','after'); ?>
-
-    <?php $this->applyTemplateHook('breadcrumb','begin'); ?>
-
-    <?php $this->part('singles/breadcrumb', ['entity' => $entity,'entity_panel' => 'spaces','home_title' => 'entities: My Spaces']); ?>
-
-    <?php $this->applyTemplateHook('breadcrumb','end'); ?>
 
     <?php $this->part('owner', ['entity' => $entity, 'owner' => $entity->owner]) ?>
 </article>
