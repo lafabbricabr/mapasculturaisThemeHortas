@@ -1975,7 +1975,7 @@ article.seal .header-image {
       width: 100%;
       padding: 1.5rem; } }
 
-.required:before {
+body.action-edit .required:before, body.action-create .required:before {
   content: "*";
   display: inline-block;
   color: red; }
@@ -5173,5 +5173,9 @@ footer#main-footer {
   font-style: normal; }
 .icon-space:before, .icon-agent:before, .icon-event:before, .icon-login:before {
   font-family: "IconsHorta" !important; }
+
+#tab-cultivo .servico, #tab-compostagem .servico, #tab-coleta .servico {
+  border-top: none;
+  padding-top: initial; }
 
 /*# sourceMappingURL=main.css.map */

@@ -66,6 +66,43 @@ class Theme extends BaseV1\Theme{
         parent::_init();
         $app = App::i();
 
+        $cult = [
+            "hor_ped_obj",
+            "hor_crop_type",
+            "hor_frut_tree",
+            "hor_frut_tree_ped",
+            "hor_nursery",
+            "hor_scholl_assist",
+            "hor_rain_wat",
+            "hor_involved_name",
+            "hor_involved_email",
+            "hor_access_veg_sup",
+            "hor_tool_types",
+            "hor_area_cultivated",
+            "hor_area_cultivable",
+            "hor_type_cult",
+            "hor_num_stud_involved"
+        ];
+        $comp =[
+            "hor_comp",
+            "hor_comp_inv_name",
+            "hor_comp_inv_email",
+            "hor_comp_num_stud",
+            "hor_comp_assist"
+        ];
+        $cole = [
+            "hor_selec_collect",
+            "hor_solid_sep",
+            "hor_solid_sep_resp",
+            "hor_solid_sep_resp_email"
+        ];
+
+        $has_fields = function($fields, $entity){
+            foreach ($fields as $field)
+                if ($entity->$field) return true;
+            return false;
+        };
+
         $app->hook('view.render(<<*>>):before', function() use($app) {
             $this->_publishAssets();
             $this->assetManager->publishAsset('img/home-agents.png');
@@ -75,19 +112,78 @@ class Theme extends BaseV1\Theme{
             $this->assetManager->publishFolder('fonts');
         });
 
-        $app->hook('template(space.<<*>>.tabs):begin', function(){
-            $this->part('header-tabs');
+        $app->hook('template(space.<<*>>.tabs):begin', function() use($app, $cult, $comp, $cole, $has_fields){
+            $entity = $app->view->controller->requestedEntity;
+            $show_cult = $this->isEditable() || $has_fields($cult, $entity);
+            $show_comp = $this->isEditable() || $has_fields($comp, $entity);
+            $show_cole = $this->isEditable() || $has_fields($cole, $entity);
+            $this->part(
+                'header-tabs',
+                [
+                    'show_cult' => $show_cult,
+                    'show_comp' => $show_comp,
+                    'show_cole' => $show_cole
+                ]
+             );
         });
 
         $insert_fields = function($entity, $fields) use($app){
+
             foreach ($fields as $field) {
-                $this->part('singles/form-field', ['entity' => $entity, 'field_name' => $field, 'field_label' => $field]);
+
+                $meta = $app->getRegisteredMetadataByMetakey($field, $entity);
+
+                if($this->isEditable() || ($entity->$field && !$meta->private)){
+
+                    if (isset($meta->config['empty_text']))
+                        $field_empty = $meta->config['empty_text'];
+                    else if (in_array($meta->type, ['select', 'multiselect']))
+                        $field_empty = 'Selecione';
+                    else
+                        $field_empty = 'Insira';
+
+                    $field_class = '';
+
+                    if ($this->isEditable && $meta->is_required)
+                        $field_class .= ' required';
+
+
+                    $this->part(
+                        'singles/form-field',
+                        [
+                            'entity'        => $entity,
+                            'field_name'    => $field,
+                            'field_label'   => $meta->label,
+                            'field_empty'   => $field_empty,
+                            'field_class'   => $field_class,
+                            'field_private' => $meta->private
+                        ]
+                    );
+                }
             }
+
         };
 
-        $app->hook('template(space.<<*>>.tabs-content):end', function() use($app, $insert_fields){
+        $app->hook('template(space.<<*>>.tabs-content):end', function() use($app, $insert_fields, $cult, $comp, $cole, $has_fields){
             $entity = $app->view->controller->requestedEntity;
-            $this->part('content-tabs', ['entity' => $entity, 'insert_fields' => $insert_fields]);
+
+            $show_cult = $this->isEditable() || $has_fields($cult, $entity);
+            $show_comp = $this->isEditable() || $has_fields($comp, $entity);
+            $show_cole = $this->isEditable() || $has_fields($cole, $entity);
+
+            $this->part(
+                'content-tabs',
+                [
+                    'entity'        => $entity,
+                    'insert_fields' => $insert_fields,
+                    'cult'          => $cult,
+                    'comp'          => $comp,
+                    'cole'          => $cole,
+                    'show_cult'     => $show_cult,
+                    'show_comp'     => $show_comp,
+                    'show_cole'     => $show_cole
+                ]
+            );
         });
 
 
