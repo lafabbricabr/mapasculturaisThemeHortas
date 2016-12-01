@@ -113,6 +113,7 @@ return [
             $school->type = 2;
 
             $school->save(true);
+            $em->clear();
         }
     }
 ];
