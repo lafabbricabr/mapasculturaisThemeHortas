@@ -1,7 +1,8 @@
 <?php
 namespace mapasculturaisThemeHortas;
-use MapasCulturais\Themes\BaseV1;
 use MapasCulturais\App;
+use MapasCulturais\Themes\BaseV1;
+use MapasCulturais\Definitions;
 
 class Theme extends BaseV1\Theme{
 
@@ -185,8 +186,6 @@ class Theme extends BaseV1\Theme{
                 ]
             );
         });
-
-
     }
 
     protected function _getSpaceMetadata() {
@@ -468,7 +467,6 @@ class Theme extends BaseV1\Theme{
         $app = App::i();
         $metadata = [];
 
-
         foreach($this->_getSpaceMetadata() as $key => $cfg){
             $key = 'hor_' . $key;
 
@@ -482,5 +480,52 @@ class Theme extends BaseV1\Theme{
             }
         }
 
+        $app->hook('app.register', function(&$registry) {
+            $group = null;
+            $registry['entity_type_groups']['MapasCulturais\Entities\Space'] = array_filter($registry['entity_type_groups']['MapasCulturais\Entities\Space'], function($item) use (&$group) {
+                if ($item->name === 'Hortas Escolares') {
+                    $group = $item;
+                    return $item;
+                } else {
+                    return null;
+                }
+            });
+
+            $registry['entity_types']['MapasCulturais\Entities\Space'] = array_filter($registry['entity_types']['MapasCulturais\Entities\Space'], function($item) use ($group) {
+                    if ($item->id >= $group->min_id && $item->id <= $group->max_id) {
+                        return $item;
+                    } else {
+                        return null;
+                    }
+                }
+            );
+        });
+
+        $school_types =[
+            6000 => 'CCI/CIPS',
+            6001 => 'CECI',
+            6002 => 'CEI Direta',
+            6003 => 'CEI Indireta',
+            6004 => 'CEU CEI',
+            6005 => 'CEU EMEI',
+            6006 => 'Creche Conveniada',
+            6007 => 'EMEI',
+            6008 => 'CEMEI',
+            6019 => 'EMEBS Infantil',
+            6010 => 'EMEF',
+            6011 => 'CEU EMEF',
+            6012 => 'EMEBS EMEF',
+            6013 => 'EJA Regular',
+            6014 => 'EJS Modular',
+            6015 => 'CIEJA',
+            6016 => 'MOVA',
+            6017 => 'Ensino Médio Regular',
+            6018 => 'Ensino Profissionalizante'
+        ];
+
+        $app->registerEntityTypeGroup(new Definitions\EntityTypeGroup('MapasCulturais\Entities\Space', 'Hortas Escolares', 6000, 6019));
+
+        foreach($school_types as $k => $v)
+            $app->registerEntityType(new Definitions\EntityType('MapasCulturais\Entities\Space', $k, $v));
     }
 }

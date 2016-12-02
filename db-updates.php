@@ -1,13 +1,15 @@
 <?php
 use MapasCulturais\Entities\Space;
 use MapasCulturais\Entities\Agent;
+use MapasCulturais\Entities\Seal;
+use MapasCulturais\Entities\SpaceSealRelation;
 
 $app = MapasCulturais\App::i();
 $em = $app->em;
 $conn = $em->getConnection();
 
 return [
-    'import agents from file' => function() use($app, $em) {
+    'hor: import agents from file' => function() use($app, $em) {
         $rows = explode("\n", file_get_contents(__DIR__ . '/imports/agents_dre.csv'));
         $header = explode(',', $rows[0]);
 
@@ -26,6 +28,7 @@ return [
             $agent->En_Estado = 'SP';
 
             $agent->endereco = $agent->En_Nome_Logradouro . ", " . $agent->En_Num . ", " . $agent->En_Bairro . ", " . $agent->En_CEP  . ", " . $agent->En_Municipio . ", " . $agent->En_Estado;
+            $agent->terms['area'][] = 'Educação';
             $agent->owner = $app->repo('Agent')->find(1);
             $agent->nomeCompleto = $agent->name;
 
@@ -33,7 +36,7 @@ return [
         }
         $em->flush();
     },
-    'import spaces from file' => function() use($app, $em){
+    'hor: import spaces from file' => function() use($app, $em){
         $from_to = [
             'CODESC'        => '',
             'TIPOESC'       => '',
@@ -83,6 +86,27 @@ return [
             'JACANA/TREMEMBE'           => 'DRE Jaçanã/Tremembé'
         ];
 
+        $school_types = [
+            'CECI'      => 6001,
+            'CEI DIRET' => 6002,
+            'CEI INDIR' => 6003,
+            'CEU CEI'   => 6004,
+            'CEU EMEI'  => 6005,
+            'CR.P.CONV' => 6006,
+            'EMEI'      => 6007,
+            'CEMEI'     => 6008,
+            'EMEBS'     => 6019,
+            'EMEF'      => 6010,
+            'CEU EMEF'  => 6011,
+            'EMEFM'     => 6012,
+                // 6013 => 'EJA Regular',
+                // 6014 => 'EJS Modular',
+            'CIEJA'     => 6015,
+            'MOVA'      => 6016,
+            'DIR EDUC'  => 6017,
+            'E TECNICA' => 6018,
+        ];
+
         $rows = explode("\n", file_get_contents(__DIR__ . '/imports/schools.csv'));
 
         $header = explode(',', $rows[0]);
@@ -110,18 +134,47 @@ return [
             $school->lat_temp = $text_to_coord($school->lat_temp);
             $school->lon_temp = $text_to_coord($school->lon_temp);
 
-            // echo "\n".$school->lon_temp."=".floatval($school->lon_temp)."\n";
-            // echo $school->lat_temp."=".floatval($school->lat_temp)."\n";
+            $school->terms['area'] = ['Educação'];
+            $school->shortDescription = $school->name;
 
             $school->location = new MapasCulturais\Types\GeoPoint(floatval($school->lon_temp), floatval($school->lat_temp));
 
             $agent = $app->repo('Agent')->findOneBy(['name' => $agent_from_to[$school->owner_temp]]);
 
             $school->owner = $agent;
-            $school->type = 2;
+            $school->type = $app->getRegisteredEntityTypeById('MapasCulturais\Entities\Space',$school_types[$school->type_temp]);
 
             $school->save(true);
             $em->clear();
         }
-    }
+    },
+    'hor: add default seal to all spaces' => function() use($app){
+        $app->user = $app->repo('User')->find(1);
+        $app->auth->authenticatedUser = $app->repo('User')->find(1);
+        $owner_agent = $app->user->profile;
+
+        $seal = new Seal;
+        $seal->name = "SME";
+        $seal->validPeriod = 0;
+        $seal->agent = $owner_agent;
+        $seal->owner = $owner_agent;
+        $seal->_ownerId = $owner_agent->id;
+        $seal->save(true);
+
+        $schools = $app->repo('Space')->findAll();
+
+        foreach ($schools as $school) {
+            $seal_relation = new SpaceSealRelation;
+
+            $seal_relation->seal = $seal;
+            $seal_relation->objectId = $school->id;
+            $seal_relation->object_type = $school->entityClassName;
+            $seal_relation->agent = $owner_agent;
+            $seal_relation->owner = $school;
+            $seal_relation->owner_relation = $owner_agent;
+            $seal_relation->save();
+
+            // $app->em->clear();
+        }
+    },
 ];
