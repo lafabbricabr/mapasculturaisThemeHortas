@@ -17,13 +17,15 @@ return [
             $agent = new Agent($app->repo('User')->find(1));
             $row = explode(',', $row);
             foreach($row as $i => $col){
-                // echo '1:'. $col . "\n2:" . $i . "\n3:" . $header[$i] . "\n\n\n";
                 $agent->$header[$i] = $col;
             }
 
             echo "Adding Agent \"$agent->name\"\n";
 
-            $agent->endereco = $agent->En_Nome_Logradouro + ", " + $agent->En_Num + ", " + $agent->En_Bairro + ", " + $agent->En_CEP  + ", São Paulo, SP";
+            $agent->En_Municipio = 'São Paulo';
+            $agent->En_Estado = 'SP';
+
+            $agent->endereco = $agent->En_Nome_Logradouro . ", " . $agent->En_Num . ", " . $agent->En_Bairro . ", " . $agent->En_CEP  . ", " . $agent->En_Municipio . ", " . $agent->En_Estado;
             $agent->owner = $app->repo('Agent')->find(1);
             $agent->nomeCompleto = $agent->name;
 
@@ -32,14 +34,6 @@ return [
         $em->flush();
     },
     'import spaces from file' => function() use($app, $em){
-
-        $dependencie = $app->repo('DbUpdate')->findOneBy(['name' => 'import agents from file']);
-        if (!$dependencie){
-            echo "This db-update function needs to run after db-update \"import agents from file\n\"";
-            echo "Nothing to do x'(\n";
-            return false;
-        }
-
         $from_to = [
             'CODESC'        => '',
             'TIPOESC'       => '',
@@ -65,8 +59,8 @@ return [
             'NOME_ANT'      => '',
             'T2D3D'         => '',
             'DTURNOS'       => '',
-            'LATITUDE'      => 'latitude',
-            'LONGITUDE'     => 'longitude',
+            'LATITUDE'      => 'lat_temp',
+            'LONGITUDE'     => 'lon_temp',
             'REDE'          => '',
             'DATABASE'      => '',
             'TOTCLA'        => '',
@@ -105,7 +99,21 @@ return [
 
             echo "\nAdding Space \"$school->name\"";
 
-            $school->endereco = $school->En_Nome_Logradouro + ", " + $school->En_Num + ", " + $school->En_Bairro + ", " + $school->En_CEP  + ", São Paulo, SP";
+            $school->En_Municipio = 'São Paulo';
+            $school->En_Estado = 'SP';
+
+            $school->endereco = $school->En_Nome_Logradouro . ", " . $school->En_Num . ", " . $school->En_Bairro . ", " . $school->En_CEP  . ", " . $school->En_Municipio . ", " . $school->En_Estado;
+
+            $text_to_coord = function($text){
+                return substr($text, 0, 3) . '.' . substr($text, 3);
+            };
+            $school->lat_temp = $text_to_coord($school->lat_temp);
+            $school->lon_temp = $text_to_coord($school->lon_temp);
+
+            // echo "\n".$school->lon_temp."=".floatval($school->lon_temp)."\n";
+            // echo $school->lat_temp."=".floatval($school->lat_temp)."\n";
+
+            $school->location = new MapasCulturais\Types\GeoPoint(floatval($school->lon_temp), floatval($school->lat_temp));
 
             $agent = $app->repo('Agent')->findOneBy(['name' => $agent_from_to[$school->owner_temp]]);
 
