@@ -117,7 +117,7 @@ class Theme extends BaseV1\Theme{
         $app->hook('template(space.<<*>>.tabs):begin', function() use($app, $cult, $comp, $cole, $has_fields){
             $entity = $app->view->controller->requestedEntity;
             $show_cult = $this->isEditable() || $has_fields($cult, $entity);
-            $show_comp = false && $this->isEditable() || $has_fields($comp, $entity);
+            $show_comp = $this->isEditable() || $has_fields($comp, $entity);
             $show_cole = $this->isEditable() || $has_fields($cole, $entity);
             $this->part(
                 'header-tabs',
@@ -171,7 +171,7 @@ class Theme extends BaseV1\Theme{
             $entity = $app->view->controller->requestedEntity;
 
             $show_cult = $this->isEditable() || $has_fields($cult, $entity);
-            $show_comp = false && $this->isEditable() || $has_fields($comp, $entity);
+            $show_comp = $this->isEditable() || $has_fields($comp, $entity);
             $show_cole = $this->isEditable() || $has_fields($cole, $entity);
 
             $this->part(
