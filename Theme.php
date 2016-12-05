@@ -117,7 +117,7 @@ class Theme extends BaseV1\Theme{
         $app->hook('template(space.<<*>>.tabs):begin', function() use($app, $cult, $comp, $cole, $has_fields){
             $entity = $app->view->controller->requestedEntity;
             $show_cult = $this->isEditable() || $has_fields($cult, $entity);
-            $show_comp = $this->isEditable() || $has_fields($comp, $entity);
+            $show_comp = false && $this->isEditable() || $has_fields($comp, $entity);
             $show_cole = $this->isEditable() || $has_fields($cole, $entity);
             $this->part(
                 'header-tabs',
@@ -171,7 +171,7 @@ class Theme extends BaseV1\Theme{
             $entity = $app->view->controller->requestedEntity;
 
             $show_cult = $this->isEditable() || $has_fields($cult, $entity);
-            $show_comp = $this->isEditable() || $has_fields($comp, $entity);
+            $show_comp = false && $this->isEditable() || $has_fields($comp, $entity);
             $show_cole = $this->isEditable() || $has_fields($cole, $entity);
 
             $this->part(
@@ -197,6 +197,7 @@ class Theme extends BaseV1\Theme{
                 "hor_director_name",
                 "hor_director_email",
                 "hor_ped_coord_name",
+                "hor_ped_coord_email",
                 "hor_ped_project",
                 "hor_project_in_progress",
                 "hor_edu_int"
@@ -259,6 +260,9 @@ class Theme extends BaseV1\Theme{
             ],
             "ped_coord_name" => [
                 "label" => "Nome do Coordenador Pedagógico",
+            ],
+            "ped_coord_email" => [
+                "label" => "Email do Coordenador Pedagógico",
             ],
             "ped_project" => [
                 "label" => "Projeto Político Pedagógico",

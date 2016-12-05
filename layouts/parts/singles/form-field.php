@@ -3,7 +3,7 @@
 <?php else: ?>
     <p>
 <?php endif; ?>
-<span class="label"><?php echo $field_label ?>: </span>
+<span class="label"><?php echo $field_label . ( substr($field_label, -1) != '?'? ':' : '') ?></span>
 <?php if($field_type === "multiselect"): ?>
         <editable-multiselect entity-property="<?php echo $field_name ?>" empty-label="<?php echo $field_empty ?>" box-title="<?php echo $field_label ?>:"></editable-multiselect>
 <?php else: ?>
