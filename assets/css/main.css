@@ -5224,9 +5224,24 @@ nav#main-nav ul.entities-menu, nav#main-nav ul.session-menu, nav#about-nav ul.en
 #home-spaces {
   background: url("../img/home-spaces.png");
   background-size: 100%;
-  background-color: #5c4d3f; }
+  background-color: #5c4d3f;
+  display: table-cell; }
   #home-spaces p, #home-spaces h1, #home-spaces h4, #home-spaces div, #home-spaces ul li {
     color: #FFF; }
+  #home-spaces > .box {
+    float: none;
+    display: inline-block; }
+    #home-spaces > .box.box-1 {
+      width: 30%; }
+    #home-spaces > .box.box-2 {
+      width: 45%;
+      vertical-align: top; }
+    #home-spaces > .box.home-space-img.img-01 {
+      width: 18%;
+      padding: 0;
+      padding-top: 0; }
+      #home-spaces > .box.home-space-img.img-01 > img {
+        margin-bottom: -80px; }
 
 #home-agents {
   background: url("../img/home-agents.png");

@@ -11,8 +11,6 @@
 // application/
 // --------------------------------------------------
 
-
-
 body.controller-site
     background-color: #f7f1ee
     p, h1, h2, h3
@@ -67,9 +65,6 @@ nav#main-nav, nav#about-nav
                 >a
                     line-height: 2.4rem
 
-// nav#about-nav
-//     height: 95px
-
 #home-intro, #home-agents, #home-events, #home-spaces, #home-developers
     background-color: transparent
 
@@ -90,9 +85,23 @@ nav#main-nav, nav#about-nav
     background: url('../img/home-spaces.png')
     background-size: 100%
     background-color: #5c4d3f
+    display: table-cell
     p, h1, h4, div, ul li
         color: #FFF
-
+    > .box
+        float: none
+        display: inline-block
+        &.box-1
+            width: 30%
+        &.box-2
+            width: 45%
+            vertical-align: top
+        &.home-space-img.img-01
+            width: 18%
+            padding: 0
+            padding-top: 0
+            > img
+                margin-bottom: -80px
 
 #home-agents
     background: url('../img/home-agents.png')
@@ -107,8 +116,6 @@ nav#main-nav, nav#about-nav
     background: url('../img/home-developers.png')
     background-color: #92beb2
 
-
-
 #home-intro, #home-events, #home-spaces, #home-developers
     background-repeat: no-repeat
     background-size: 100%
@@ -122,9 +129,8 @@ nav#main-nav, nav#about-nav
                 background: transparent
                 border: none
 
-#home-developers
-    .box
-        padding-top: 380px
+#home-developers .box
+    padding-top: 380px
 
 footer#main-footer
     display: none
@@ -136,11 +142,9 @@ footer#main-footer
     font-weight: normal
     font-style: normal
 
-
 .icon-space, .icon-agent, .icon-event, .icon-login
     &:before
         font-family: "IconsHorta" !important
-
 
 #tab-cultivo, #tab-compostagem, #tab-coleta
     .servico

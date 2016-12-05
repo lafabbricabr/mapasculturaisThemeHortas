@@ -22,7 +22,7 @@ if($space && $img_url = $this->getEntityFeaturedImageUrl($space)){
 $url_search_spaces = $this->searchSpacesUrl;
 ?>
 <article id="home-spaces" class="js-page-menu-item home-entity clearfix">
-    <div class="box">
+    <div class="box box-1">
         <h1><span class="icon icon-space"></span> <?php $this->dict('entities: Spaces') ?></h1>
         <div class="clearfix">
             <div class="statistics">
@@ -46,9 +46,11 @@ $url_search_spaces = $this->searchSpacesUrl;
                 <?php endforeach; ?>
             </div>
         </div>
-
     </div>
-    <div class="box">
+    <div class="box home-space-img img-01">
+        <img src="<?php $this->asset('img/home-space-img-01.png') ?>" />
+    </div>
+    <div class="box box-2">
         <?php if($space): ?>
             <a href="<?php echo $space->singleUrl ?>">
                 <div <?php echo $space_img_attributes;?>>
@@ -63,4 +65,5 @@ $url_search_spaces = $this->searchSpacesUrl;
         <a class="btn btn-accent btn-large add" href="<?php echo $app->createUrl('space', 'create') ?>">Adicionar <?php $this->dict('entities: space') ?></a>
         <a class="btn btn-accent btn-large" href="<?php echo $url_search_spaces ?>">Ver tudo</a>
     </div>
+    <img src="<?php $this->asset('img/home-space-img-02.png') ?>" class="home-space-img img-02" />
 </article>

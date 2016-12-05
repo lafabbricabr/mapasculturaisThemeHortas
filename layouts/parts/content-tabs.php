@@ -1,18 +1,3 @@
-<?php
-    $inst = [
-        "num_inep",
-        "cod_eol",
-        "dre_vinc",
-        "num_reg_stu",
-        "director_name",
-        "director_email",
-        "ped_coord_name",
-        "ped_coord_name",
-        "ped_project",
-        "project_in_progress",
-        "edu_int"
-    ];
-?>
 <?php if($show_cult):?>
     <div class="aba-content" id="tab-cultivo">
         <div class="ficha-spcultura">
