@@ -1,0 +1,1 @@
+<span class="js-editable required" data-edit="hor_dre_vinc" data-original-title="DRE a qual a escola está vinculada"><?php echo $entity->hor_dre_vinc ?></span>

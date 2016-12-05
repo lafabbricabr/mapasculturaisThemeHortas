@@ -68,6 +68,7 @@ class Theme extends BaseV1\Theme{
         $app = App::i();
 
         $cult = [
+            'hor_has_cult',
             "hor_ped_obj",
             "hor_crop_type",
             "hor_frut_tree",
@@ -157,7 +158,8 @@ class Theme extends BaseV1\Theme{
                             'field_label'   => $meta->label,
                             'field_empty'   => $field_empty,
                             'field_class'   => $field_class,
-                            'field_private' => $meta->private
+                            'field_private' => $meta->private,
+                            'field_type'    => $meta->type
                         ]
                     );
                 }
@@ -186,23 +188,48 @@ class Theme extends BaseV1\Theme{
                 ]
             );
         });
+
+        $app->hook('template(space.<<*>>.tab-about-service):begin', function() use($app, $insert_fields){
+            $inst = [
+                "hor_num_inep",
+                "hor_cod_eol",
+                "hor_num_reg_stu",
+                "hor_director_name",
+                "hor_director_email",
+                "hor_ped_coord_name",
+                "hor_ped_project",
+                "hor_project_in_progress",
+                "hor_edu_int"
+            ];
+            $entity = $app->view->controller->requestedEntity;
+            $this->part(
+                'content-tab-inst',
+                [
+                    'entity' => $entity,
+                    'inst' => $inst,
+                    'insert_fields' => $insert_fields
+                ]
+            );
+        });
     }
 
     protected function _getSpaceMetadata() {
         return [
             // Inicio Institucional
             "num_inep" => [
-                "label" => "Número INEP da escola",
-                "type" => "text"
+                "label" => "Número INEP",
+                "type" => "int"
             ],
             "cod_eol" => [
                 "label" => "Código EOL",
-                "type" => "text",
                 "required" => "Campo obrigatório"
             ],
             "dre_vinc" => [
                 "label" => "DRE a qual a escola está vinculada",
                 "type" => "select",
+                "validations" => [
+                    "required" => "Selecione a qual DRE a escola está vinculada"
+                ],
                 "options" => [
                     "DRE Butantã",
                     "DRE Campo Limpo",
@@ -226,19 +253,12 @@ class Theme extends BaseV1\Theme{
             ],
             "director_name" => [
                 "label" => "Nome do Diretor",
-                "type" => "text"
             ],
             "director_email" => [
                 "label" => "Email do Diretor",
-                "type" => "text"
             ],
             "ped_coord_name" => [
                 "label" => "Nome do Coordenador Pedagógico",
-                "type" => "text"
-            ],
-            "ped_coord_name" => [
-                "label" => "Email do Coordenador Pedagógico",
-                "type" => "text"
             ],
             "ped_project" => [
                 "label" => "Projeto Político Pedagógico",
@@ -259,6 +279,14 @@ class Theme extends BaseV1\Theme{
             ],
             // Fim Institucional
             // Começo Cultivo
+            "has_cult" => [
+                "label" => "A escola tem horta?",
+                "type" => "select",
+                "options" => [
+                    "Sim",
+                    "Não"
+                ],
+            ],
             "ped_obj" => [
                 "label" => "É uma horta com objetivo pedagógico?",
                 "type" => "select",
@@ -325,17 +353,16 @@ class Theme extends BaseV1\Theme{
             ],
             "involved_name" => [
                 "label" => "Nome de um ou mais envolvidos com atividades na horta, pomar ou viveiro.",
-                "type" => "text"
             ],
             "involved_email" => [
                 "label" => "Email de um ou mais envolvidos com atividades na horta, pomar ou viveiro.",
-                "type" => "text"
             ],
             "access_veg_sup" => [
                 "label" => "A escola tem acesso permanente a insumos consumíveis para horta?",
                 "type" => "select",
                 "options" => [
-                    "Adubo Orgânico",
+                    "Adubo",
+                    "Orgânico",
                     "Argila Expandida",
                     "Biofertilizante",
                     "Calcário",
@@ -352,7 +379,7 @@ class Theme extends BaseV1\Theme{
             ],
             "tool_types" => [
                 "label" => "Quais são os tipos e quantidades de ferramentas disponíveis para horta na escola?",
-                'multiselect',
+                'type' => 'multiselect',
                 "options" => [
                     "Ancinho",
                     "Balde",
@@ -368,7 +395,7 @@ class Theme extends BaseV1\Theme{
                     "Pá Quadrada",
                     "Rastelo",
                     "Regador",
-                    "Tesoura De Poda"
+                    "Tesoura De Poda",
                 ]
             ],
             "area_cultivated" => [
@@ -381,14 +408,14 @@ class Theme extends BaseV1\Theme{
             ],
             "type_cult" => [
                 "label" => "Quais são os tipos de alimentos cultivados?",
-                "multiselect",
+                'type' => 'multiselect',
                 "options" => [
-                    "Frutas".
-                    "Legumes".
-                    "Leguminosas".
-                    "Medicinais".
-                    "PANCs".
-                    "Temperos".
+                    "Frutas",
+                    "Legumes",
+                    "Leguminosas",
+                    "Medicinais",
+                    "PANCs",
+                    "Temperos",
                     "Verduras"
                 ]
             ],
@@ -408,12 +435,10 @@ class Theme extends BaseV1\Theme{
                 ]
             ],
             "comp_inv_name" => [
-                "label" => "Nome de um ou mais envolvidos com atividades de compostagem",
-                "type" => "text"
+                "label" => "Nome de um ou mais envolvidos com atividades de compostagem"
             ],
             "comp_inv_email" => [
-                "label" => "Email de um ou mais envolvidos com atividades de compostagem.",
-                "type" => "text"
+                "label" => "Email de um ou mais envolvidos com atividades de compostagem."
             ],
             "comp_num_stud" => [
                 "label" => "Qual a quantidade de alunos envolvidos com compostagem?",
@@ -446,12 +471,10 @@ class Theme extends BaseV1\Theme{
                 ]
             ],
             "solid_sep_resp" => [
-                "label" => "Nome do responsável pela separação de resíduos para coleta seletiva ",
-                "type" => "text"
+                "label" => "Nome do responsável pela separação de resíduos para coleta seletiva "
             ],
             "solid_sep_resp_email" => [
-                "label" => "Email do responsável",
-                "type" => "text"
+                "label" => "Email do responsável"
             ]
             // Fim Coleta
         ];
@@ -469,7 +492,6 @@ class Theme extends BaseV1\Theme{
 
         foreach($this->_getSpaceMetadata() as $key => $cfg){
             $key = 'hor_' . $key;
-
             $metadata['MapasCulturais\Entities\Space'][$key] = $cfg;
         }
 
