@@ -462,8 +462,10 @@ class Theme extends BaseV1\Theme{
                 "label" => "A escola conta com coleta seletiva na porta?",
                 "type" => "select",
                 "options" => [
-                    "Sim",
-                    "Não"
+                    'Não',
+                    'Caminhão de coleta seletiva da prefeitura',
+                    'Cooperativa de coleta credenciada pela prefeitura',
+                    'Outros'
                 ]
             ],
             "solid_sep" => [
