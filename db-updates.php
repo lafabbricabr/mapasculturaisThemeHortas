@@ -28,13 +28,12 @@ return [
             $agent->En_Estado = 'SP';
 
             $agent->endereco = $agent->En_Nome_Logradouro . ", " . $agent->En_Num . ", " . $agent->En_Bairro . ", " . $agent->En_CEP  . ", " . $agent->En_Municipio . ", " . $agent->En_Estado;
-            $agent->terms['area'][] = 'Educação';
+            $agent->terms['area'] = ['Educação'];
             $agent->owner = $app->repo('Agent')->find(1);
             $agent->nomeCompleto = $agent->name;
 
-            $agent->save();
+            $agent->save(true);
         }
-        $em->flush();
     },
     'hor: import spaces from file' => function() use($app, $em){
         $from_to = [
@@ -142,7 +141,10 @@ return [
             $agent = $app->repo('Agent')->findOneBy(['name' => $agent_from_to[$school->owner_temp]]);
 
             $school->owner = $agent;
-            $school->type = $app->getRegisteredEntityTypeById('MapasCulturais\Entities\Space',$school_types[$school->type_temp]);
+            $school->type = $app->getRegisteredEntityTypeById(
+                'MapasCulturais\Entities\Space',
+                $school_types[isset($school_types[$school->type_temp]) ? $school->type_temp : 'CECI']
+            );
 
             $school->save(true);
             $em->clear();
@@ -164,17 +166,17 @@ return [
         $schools = $app->repo('Space')->findAll();
 
         foreach ($schools as $school) {
+            echo "\nAdding seal \"$seal->name\" to space \"$school->name\"";
             $seal_relation = new SpaceSealRelation;
-
             $seal_relation->seal = $seal;
             $seal_relation->objectId = $school->id;
             $seal_relation->object_type = $school->entityClassName;
             $seal_relation->agent = $owner_agent;
             $seal_relation->owner = $school;
             $seal_relation->owner_relation = $owner_agent;
-            $seal_relation->save();
+            $seal_relation->save(true);
 
-            // $app->em->clear();
+            $app->em->clear();
         }
     },
 ];

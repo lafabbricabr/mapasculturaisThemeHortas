@@ -28,15 +28,22 @@ body.controller-site
     display: none
 
 #brand-logo
-    padding: 1.375rem 3.5rem
+    padding: 1.375rem 3rem
     img
         width: initial
         height: 51px
 
-nav#main-nav, nav#about-nav
+nav#main-nav
     height: 95px
     padding-top: 0
     padding-bottom: 0
+
+nav#about-nav
+    padding: 30px 10px
+    h1#organization-logo img
+        width: 99px
+
+nav#main-nav, nav#about-nav
     ul
         &.entities-menu, &.session-menu
             height: 104px
@@ -44,13 +51,16 @@ nav#main-nav, nav#about-nav
             .icon
                 width: initial
                 margin: 0
-                font-size: 3.5rem
-                line-height: 3rem
+                font-size: 3.2rem
+                line-height: 3.3rem
 
             .menu-item-label
                 line-height: 1rem
 
             > li
+                .avatar
+                    width: 65%
+
                 width: 7.5rem
                 height: 104px
                 border: none
