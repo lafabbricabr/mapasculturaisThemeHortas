@@ -4,13 +4,13 @@
 	<img class="como-usar-img alignleft" src="{{asset:img/tour/tour01.png}}" alt="" />
 	<div class="como-usar-content alignright">
 		<h2>Encontre</h2>
-		Digite uma palavra-chave no campo de busca e escolha no botão ao lado a categoria daquilo que você procura: escolas ou agentes
+		Digite uma palavra-chave no campo de busca e escolha no botão ao lado a categoria daquilo que você procura: escolas ou agentes.
 	</div>
 </section>
 <section id="como-usar-encontre-1" class="como-usar clearfix">
     <img class="como-usar-img alignright" src="{{asset:img/tour/tour02.png}}" alt="" />
     <div class="como-usar-content alignleft">
-        Ou, se preferir ver tudo, vá direto no link do menu superior para ver os dados das Escolas ou Agentes
+        Ou, se preferir ver tudo, vá direto no link do menu superior para ver os dados das Escolas ou Agentes.
     </div>
 </section>
 <section id="como-usar-encontre-2" class="como-usar clearfix">
