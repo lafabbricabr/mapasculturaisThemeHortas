@@ -1,4 +1,4 @@
-<h1>Como usarXX</h1>
+<h1>Como usar</h1>
 
 <section id="como-usar-encontre" class="como-usar clearfix">
 	<img class="como-usar-img alignleft" src="{{asset:img/tour/tour01.png}}" alt="" />
