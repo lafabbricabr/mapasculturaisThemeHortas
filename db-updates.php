@@ -36,6 +36,7 @@ return [
         }
     },
     'hor: import spaces from file' => function() use($app, $em){
+        $app->em->flush();
         $from_to = [
             'CODESC'        => '',
             'TIPOESC'       => '',
@@ -151,22 +152,29 @@ return [
         }
     },
     'hor: add default seal to all spaces' => function() use($app){
+
+        $app->em->flush();
+
         $app->user = $app->repo('User')->find(1);
         $app->auth->authenticatedUser = $app->repo('User')->find(1);
         $owner_agent = $app->user->profile;
-
-        $seal = new Seal;
-        $seal->name = "SME";
-        $seal->validPeriod = 0;
-        $seal->agent = $owner_agent;
-        $seal->owner = $owner_agent;
-        $seal->_ownerId = $owner_agent->id;
-        $seal->save(true);
+        $seal = $app->repo('Seal')->findOneBy(['name' => 'SME']);
+        if (!$seal){
+            $seal = new Seal;
+            $seal->id = $app->em->getConnection()->fetchColumn("SELECT nextval('seal_id_seq')");
+            $seal->name = "SME";
+            $seal->shortDescription = 'Secretaria Municipal de Educação';
+            $seal->longDescription = 'Secretaria Municipal de Educação';
+            $seal->validPeriod = 0;
+            $seal->agent = $owner_agent;
+            $seal->owner = $owner_agent;
+            $seal->_ownerId = $owner_agent->id;
+            $seal->save(true);
+        }
 
         $schools = $app->repo('Space')->findAll();
 
         foreach ($schools as $school) {
-            echo "\nAdding seal \"$seal->name\" to space \"$school->name\"";
             $seal_relation = new SpaceSealRelation;
             $seal_relation->seal = $seal;
             $seal_relation->objectId = $school->id;
@@ -174,9 +182,8 @@ return [
             $seal_relation->agent = $owner_agent;
             $seal_relation->owner = $school;
             $seal_relation->owner_relation = $owner_agent;
-            $seal_relation->save(true);
-
-            $app->em->clear();
+            echo "\nAdding seal \"$seal->name\" to space \"$school->name\"";
+            $seal_relation->save();
         }
     },
 ];
