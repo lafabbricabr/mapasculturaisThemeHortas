@@ -111,6 +111,7 @@ class Theme extends BaseV1\Theme{
             $this->assetManager->publishAsset('img/home-developers.png');
             $this->assetManager->publishAsset('img/home-intro.png');
             $this->assetManager->publishAsset('img/home-spaces.png');
+            $this->assetManager->publishAsset('img/sme-about.png');
             $this->assetManager->publishFolder('fonts');
         });
 

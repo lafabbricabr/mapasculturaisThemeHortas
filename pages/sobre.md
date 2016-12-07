@@ -6,3 +6,5 @@ O sistema permite mapear e gerar relatórios sobre as escolas que mantem hortas,
 O **Sistema de Gestão de Hortas Escolares** foi desenvolvido a partir do software livre [Mapas Culturais](https://institutotim.org.br/project/mapas-culturais/), uma iniciativa do [Instituto TIM](https://institutotim.org.br/).
 
 **Realização**
+
+<img class="alignleft" src="/assets/horta/img/sme-about.png" alt="Secretaria Municipal de Educação" />
