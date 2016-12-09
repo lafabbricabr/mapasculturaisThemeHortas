@@ -19,51 +19,40 @@ body.controller-site
 #main-header
     border-top: none
 
-#main-section
-    margin-top: 95px
 
 #home-watermark
     display: none
 
 #brand-logo
-    padding: 1.375rem 3rem
     img
         width: initial
         height: 51px
 
 nav#main-nav
-    height: 95px
     padding-top: 0
     padding-bottom: 0
 
 nav#about-nav
-    padding: 30px 10px
     h1#organization-logo img
         width: 99px
 
 nav#main-nav, nav#about-nav
     ul
         &.entities-menu, &.session-menu
-            height: 104px
             border: none
             .icon
                 width: initial
                 margin: 0
                 font-size: 3.2rem
-                line-height: 3.3rem
 
             .menu-item-label
-                line-height: 1rem
+                margin-top: -5px
+                line-height: 1.85rem
 
             > li
-                .avatar
-                    width: 65%
-
                 width: 7.5rem
-                height: 104px
                 border: none
-                >a
-                    line-height: 2.4rem
+                padding: 1rem .20rem .20rem
 
 #home-intro, #home-agents, #home-events, #home-spaces, #home-developers
     background-color: transparent
@@ -77,6 +66,10 @@ nav#main-nav, nav#about-nav
         float: left
         padding: 80px
         padding-top: 120px
+
+        @media screen and (max-width: $screen-md)
+            padding: 20px
+            padding-top: 40px
 
         #home-search-form
             margin-top: 80px
@@ -167,6 +160,26 @@ footer#main-footer
     background-size: initial !important
 
 
-#home-nav li, #home-search-filter
+#home-search-form .search-field
+    width: 93%
+
+#home-search-filter
+    background: #7d9999
+    width: 135px
+    .placeholder
+        padding: 0
+        display: flex
+        .icon
+            font-size: 3rem
+            margin-right: -5px
+
+#home-nav li
     .icon
         font-size: 2rem
+
+@font-face
+    font-family: 'Roboto'
+    font-style: normal
+    font-weight: 400
+    src: url('../fonts/roboto.woff2') format('woff2')
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000
