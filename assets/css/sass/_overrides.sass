@@ -15,6 +15,10 @@ body.controller-site
     background-color: #f7f1ee
     p, h1, h2, h3
         color: #000
+    .btn
+        background: #7d9999
+        border: none
+        border-radius: 12px
 
 #main-header
     border-top: none
@@ -79,11 +83,12 @@ nav#main-nav, nav#about-nav
     background-size: 100%
     background-color: #5c4d3f
     display: table-cell
-    p, h1, h4, div, ul li
+    p, h1, h4, div, ul li, a
         color: #FFF
     > .box
         float: none
         display: inline-block
+        overflow: visible
         &.box-1
             width: 30%
         &.box-2
@@ -94,20 +99,34 @@ nav#main-nav, nav#about-nav
             padding: 0
             padding-top: 0
             > img
-                margin-bottom: -80px
+                margin-bottom: -50px
+        .random-feature
+            overflow: visible
+            .home-space-img.img-02
+                float: right
+                margin-top: -75px
+        .btn, .tag
+            color: #000
+            background-color: #f7f1ee
+        h1
+            margin-left: -50px
+
 
 #home-agents
     background: url('../img/home-agents.png')
     background-position: right bottom
     background-repeat: no-repeat
+    p, h1, h4, div, ul li, a
+        color: #7d9999
+    .btn, .tag
+        color: #fff
+    h1
+        margin-left: -50px
 
 #home-events
     background: url('../img/home-events.png')
 
 
-#home-developers
-    background: url('../img/home-developers.png')
-    background-color: #92beb2
 
 #home-intro, #home-events, #home-spaces, #home-developers
     background-repeat: no-repeat
@@ -122,8 +141,12 @@ nav#main-nav, nav#about-nav
                 background: transparent
                 border: none
 
-#home-developers .box
-    padding-top: 380px
+#home-developers
+    background: url('../img/home-developers.png')
+    background-color: #92beb2
+    background-size: cover
+    .box
+        padding-top: 300px
 
 footer#main-footer
     display: none

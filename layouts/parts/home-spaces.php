@@ -59,11 +59,11 @@ $url_search_spaces = $this->searchSpacesUrl;
                         <h2><?php echo $space->name ?></h2>
                         <p><?php echo $space->shortDescription ?></p>
                     </div>
+                    <img src="<?php $this->asset('img/home-space-img-02.png') ?>" class="home-space-img img-02" />
                 </div>
             </a>
         <?php endif; ?>
         <a class="btn btn-accent btn-large add" href="<?php echo $app->createUrl('space', 'create') ?>">Adicionar <?php $this->dict('entities: space') ?></a>
         <a class="btn btn-accent btn-large" href="<?php echo $url_search_spaces ?>">Ver tudo</a>
     </div>
-    <img src="<?php $this->asset('img/home-space-img-02.png') ?>" class="home-space-img img-02" />
 </article>

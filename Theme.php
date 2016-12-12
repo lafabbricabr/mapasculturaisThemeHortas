@@ -23,7 +23,7 @@ class Theme extends BaseV1\Theme{
 //            'site: by the site owner' => 'pela Secretaria',
 //
            'home: title' => "Olá!",
-//            'home: abbreviation' => "MC",
+           'home: abbreviation' => "SME",
 //            'home: colabore' => "Colabore com o Mapas Culturais",
            'home: welcome' => "Este é o <b>Sistema de Gestão de Hortas Escolares</b>, uma plataforma da Secretaria Municipal de Educação de São Paulo. Foi desenvolvido para que gestores da SME, diretores, coordenadores e professores compartilhem informações sobre cultivo, compostagem e coleta seletiva nas escolas da rede municipal, facilitando a organização e atualização desses dados.",
 //            'home: events' => "Você pode pesquisar eventos culturais nos campos de busca combinada. Como usuário cadastrado, você pode incluir seus eventos na plataforma e divulgá-los gratuitamente.",
