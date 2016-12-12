@@ -595,14 +595,6 @@ class Theme extends BaseV1\Theme{
                 ]
             ],
             [
-                'label' => 'Assist. Técnica',
-                'placeholder' => 'Conta com assistência técnica',
-                'filter' => [
-                    'param' => 'hor_scholl_assist',
-                    'value' => 'IN({val})'
-                ]
-            ],
-            [
                 'label' => 'Escolas com horta',
                 'placeholder' => 'Escolas com horta',
                 'fieldType' => 'checkbox',
@@ -612,18 +604,27 @@ class Theme extends BaseV1\Theme{
                     'value' => 'EQ(Sim)'
                 ],
             ],
-            // [
-            //     'label' => $this->dict('search: verified results', false),
-            //     'tag' => $this->dict('search: verified', false),
-            //     'placeholder' => 'Exibir somente resultados Verificados',
-            //     'fieldType' => 'checkbox-verified',
-            //     'addClass' => 'verified-filter',
-            //     'isArray' => false,
-            //     'filter' => [
-            //         'param' => '@verified',
-            //         'value' => 'IN(1)'
-            //     ]
-            // ],
+            [
+                'label' => $this->dict('search: verified results', false),
+                'tag' => $this->dict('search: verified', false),
+                'placeholder' => 'Exibir somente resultados Verificados',
+                'fieldType' => 'checkbox-verified',
+                'addClass' => 'verified-filter',
+                'isArray' => false,
+                'filter' => [
+                    'param' => '@verified',
+                    'value' => 'IN(1)'
+                ]
+            ],
+            [
+                'label' => 'Assist. Técnica',
+                'placeholder' => 'Conta com assistência técnica',
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_scholl_assist',
+                    'value' => 'IN({val})'
+                ]
+            ],
             [
                 'label' => 'Acesso permanente a insumos consumíveis para horta?',
                 'placeholder' => 'Acesso permanente a insumos consumíveis para horta?',
