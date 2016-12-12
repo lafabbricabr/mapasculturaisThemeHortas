@@ -211,5 +211,10 @@ return [
             echo "\nAdding seal \"$seal->name\" to agent \"$agent->name\"";
             $seal_relation->save();
         }
+    },
+    'hor: remove default application seal' => function() use($app){
+        $seal = $app->repo('Seal')->findOneBy(['name' => 'Selo Mapas']);
+        if ($seal)
+            $seal->delete();
     }
 ];
