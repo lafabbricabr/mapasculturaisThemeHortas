@@ -130,6 +130,12 @@ class Theme extends BaseV1\Theme{
              );
         });
 
+
+        $app->hook('template(agent.<<*>>.tab-about-service):begin', function() use($app){
+            $entity = $app->view->controller->requestedEntity;
+            $this->part('agent-off-position', ['entity' => $entity]);
+        });
+
         $insert_fields = function($entity, $fields) use($app){
 
             foreach ($fields as $field) {
@@ -214,7 +220,13 @@ class Theme extends BaseV1\Theme{
             );
         });
     }
-
+    protected function _getAgentMetadata() {
+        return [
+            "off_position" => [
+                "label" => "Cargo"
+            ]
+        ];
+    }
     protected function _getSpaceMetadata() {
         return [
             // Inicio Institucional
@@ -496,11 +508,14 @@ class Theme extends BaseV1\Theme{
         parent::register();
         $app = App::i();
         $metadata = [];
+        $prefix = 'hor_';
 
-        foreach($this->_getSpaceMetadata() as $key => $cfg){
-            $key = 'hor_' . $key;
-            $metadata['MapasCulturais\Entities\Space'][$key] = $cfg;
-        }
+        foreach($this->_getSpaceMetadata() as $key => $cfg)
+            $metadata['MapasCulturais\Entities\Space'][$prefix . $key] = $cfg;
+        foreach($this->_getAgentMetadata() as $key => $cfg)
+            $metadata['MapasCulturais\Entities\Agent'][$prefix . $key] = $cfg;
+
+
 
         foreach($metadata as $entity_class => $metas){
             foreach($metas as $key => $cfg){
@@ -508,6 +523,8 @@ class Theme extends BaseV1\Theme{
                 $app->registerMetadata($def, $entity_class);
             }
         }
+
+
 
         $app->hook('app.register', function(&$registry) {
             $group = null;
