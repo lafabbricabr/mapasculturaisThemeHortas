@@ -3,6 +3,7 @@ use MapasCulturais\Entities\Space;
 use MapasCulturais\Entities\Agent;
 use MapasCulturais\Entities\Seal;
 use MapasCulturais\Entities\SpaceSealRelation;
+use MapasCulturais\Entities\AgentSealRelation;
 
 $app = MapasCulturais\App::i();
 $em = $app->em;
@@ -186,4 +187,29 @@ return [
             $seal_relation->save();
         }
     },
+    'hor: add default seal to all agents' => function() use($app){
+        $app->em->flush();
+
+        $app->user = $app->repo('User')->find(1);
+        $app->auth->authenticatedUser = $app->repo('User')->find(1);
+        $owner_agent = $app->user->profile;
+        $seal = $app->repo('Seal')->findOneBy(['name' => 'SME']);
+
+        if(!$seal){
+            echo "Seal \"SME\" needs to be created before this db-update run";
+            return false;
+        }
+        $agents = $app->repo('Agent')->findAll();
+        foreach ($agents as $agent) {
+            $seal_relation = new AgentSealRelation;
+            $seal_relation->seal = $seal;
+            $seal_relation->objectId = $agent->id;
+            $seal_relation->object_type = $agent->entityClassName;
+            $seal_relation->agent = $owner_agent;
+            $seal_relation->owner = $agent;
+            $seal_relation->owner_relation = $owner_agent;
+            echo "\nAdding seal \"$seal->name\" to agent \"$agent->name\"";
+            $seal_relation->save();
+        }
+    }
 ];
