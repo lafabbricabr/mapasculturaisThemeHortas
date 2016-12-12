@@ -130,7 +130,6 @@ class Theme extends BaseV1\Theme{
              );
         });
 
-
         $app->hook('template(agent.<<*>>.tab-about-service):begin', function() use($app){
             $entity = $app->view->controller->requestedEntity;
             $this->part('agent-off-position', ['entity' => $entity]);
@@ -573,5 +572,215 @@ class Theme extends BaseV1\Theme{
 
         foreach($school_types as $k => $v)
             $app->registerEntityType(new Definitions\EntityType('MapasCulturais\Entities\Space', $k, $v));
+    }
+
+    protected function _getFilters(){
+        $filters = parent::_getFilters();
+        $filters['space'] = [
+            [
+                'label' => 'DRE Vinculada',
+                'placeholder' => 'Selecione as DREs',
+                'filter' => [
+                    'param' => 'hor_dre_vinc',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                'label' => 'Tipo de Escola',
+                'placeholder' => 'Selecione os tipos',
+                'type' => 'entitytype',
+                'filter' => [
+                    'param' => 'type',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                'label' => 'Assist. Técnica',
+                'placeholder' => 'Conta com assistência técnica',
+                'filter' => [
+                    'param' => 'hor_scholl_assist',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                'label' => 'Escolas com horta',
+                'placeholder' => 'Escolas com horta',
+                'fieldType' => 'checkbox',
+                'isArray' => false,
+                'filter' => [
+                    'param' => 'hor_has_cult',
+                    'value' => 'EQ(Sim)'
+                ],
+            ],
+            [
+                'label' => 'Acesso permanente a insumos consumíveis para horta?',
+                'placeholder' => 'Acesso permanente a insumos consumíveis para horta?',
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_access_veg_sup',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                'label' => "A escola faz compostagem?",
+                'placeholder' => "A escola faz compostagem?",
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_comp',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                'label' => "A escola conta com coleta seletiva na porta?",
+                'placeholder' => "A escola conta com coleta seletiva na porta?",
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_selec_collect',
+                    'value' => 'IN({val})'
+                ]
+
+            ],
+            [
+                'label' => "A escola faz separação de resíduos sólidos?",
+                'placeholder' => "A escola faz separação de resíduos sólidos?",
+                'fieldType' => 'checkbox',
+                'isInline' => false,
+                'isArray' => false,
+                'filter' => [
+                    'param' => 'hor_solid_sep',
+                    'value' => 'EQ(Sim)'
+                ]
+            ],
+            [
+                'label' => "É uma escola de educação integral?",
+                'placeholder' => "É uma escola de educação integral?",
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_edu_int',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                'label' => "A escola realiza captação de água da chuva?",
+                'placeholder' => "A escola realiza captação de água da chuva?",
+                'fieldType' => 'checkbox',
+                'isArray' => false,
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_rain_wat',
+                    'value' => 'EQ(Sim)'
+                ]
+            ],
+            [
+                'label' => "Quais são os tipos e quantidades de ferramentas disponíveis para horta na escola?",
+                'placeholder' => "Quais são os tipos e quantidades de ferramentas disponíveis para horta na escola?",
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_tool_types',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                'label' => "É uma horta com objetivo pedagógico?",
+                'placeholder' => "É uma horta com objetivo pedagógico?",
+                'fieldType' => 'checkbox',
+                'isArray' => false,
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_ped_obj',
+                    'value' => 'EQ(Sim)'
+                ]
+            ],
+            [
+                'label' => "Quais são os tipos de cultivo utilizados?",
+                'placeholder' => "Quais são os tipos de cultivo utilizados?",
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_crop_type',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                'label' => "A escola tem uma ou mais árvores frutíferas?",
+                'placeholder' => "A escola tem uma ou mais árvores frutíferas?",
+                'fieldType' => 'checkbox',
+                'isArray' => false,
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_frut_tree',
+                    'value' => 'EQ(Sim)'
+                ]
+            ],
+            [
+                'label' => "Estas árvores frutíferas são utilizadas com objetivo pedagógico?",
+                'placeholder' => "Estas árvores frutíferas são utilizadas com objetivo pedagógico?",
+                'fieldType' => 'checkbox',
+                'isArray' => false,
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_frut_tree_ped',
+                    'value' => 'EQ(Sim)'
+                ]
+            ],
+            [
+                'label' => "Escolas com viveiro?",
+                'placeholder' => "Escolas com viveiro?",
+                'fieldType' => 'checkbox',
+                'isArray' => false,
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_nursery',
+                    'value' => 'EQ(Sim)'
+                ]
+            ],
+            [
+                'label' => "Quais são os tipos de alimentos cultivados?",
+                'placeholder' => "Quais são os tipos de alimentos cultivados?",
+                'isArray' => false,
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_type_cult',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                "label" => "Qual a quantidade de alunos envolvidos com horta?",
+                "placeholder" => "Qual a quantidade de alunos envolvidos com horta?",
+                'fieldType' => 'text',
+                'isArray' => false,
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_num_stud_involved',
+                    'value' => 'IN({val})'
+                ]
+            ],
+            [
+                'label' => "A escola conta com assistência técnica para compostagem?",
+                'placeholder' => "A escola conta com assistência técnica para compostagem?",
+                'fieldType' => 'checkbox',
+                'isArray' => false,
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_comp_assist',
+                    'value' => 'EQ(Sim)'
+                ]
+            ],
+            [
+                'label' => "Qual a quantidade de alunos envolvidos com compostagem?",
+                'placeholder' => "Qual a quantidade de alunos envolvidos com compostagem?",
+                'fieldType' => 'text',
+                'isArray' => false,
+                'isInline' => false,
+                'filter' => [
+                    'param' => 'hor_comp_num_stud',
+                    'value' => 'IN({val})'
+                ]
+            ]
+        ];
+
+        $filters['agent'] = array_filter($filters['agent'], function($filter){
+            return $filter['filter']['param'] !== 'area';
+        });
+        return $filters;
     }
 }
