@@ -78,6 +78,21 @@ nav#main-nav, nav#about-nav
         #home-search-form
             margin-top: 80px
 
+#home-agents, #home-spaces
+    .box
+        padding-top: 120px
+        .random-feature
+            border-radius: 20px
+            margin-top: 0
+            .feature-content
+                background: transparent
+                border: none
+                > h3
+                    margin: 15px
+                > h2, p
+                    margin-left: 15px
+                    color: $brand-space
+
 #home-spaces
     background: url('../img/home-spaces.png')
     background-size: 100%
@@ -120,8 +135,14 @@ nav#main-nav, nav#about-nav
         color: #7d9999
     .btn, .tag
         color: #fff
+    .tag
+        background: #7d9999
     h1
         margin-left: -50px
+    .random-feature
+        background: #7d9999
+        .feature-content h3
+            color: #fff
 
 #home-events
     background: url('../img/home-events.png')
@@ -131,15 +152,10 @@ nav#main-nav, nav#about-nav
 #home-intro, #home-events, #home-spaces, #home-developers
     background-repeat: no-repeat
     background-size: 100%
+    .add:before
+        display: none
+        content: ''
 
-#home-agents, #home-spaces
-    .box
-        padding-top: 120px
-        .random-feature
-            margin-top: 0
-            .feature-content
-                background: transparent
-                border: none
 
 #home-developers
     background: url('../img/home-developers.png')
@@ -147,6 +163,10 @@ nav#main-nav, nav#about-nav
     background-size: cover
     .box
         padding-top: 300px
+    .icon-developers
+        display: none
+        &:before
+            content: ''
 
 footer#main-footer
     display: none
